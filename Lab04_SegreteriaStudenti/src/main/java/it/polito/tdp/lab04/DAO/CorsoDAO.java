@@ -24,7 +24,7 @@ public class CorsoDAO {
 		try {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-
+    
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
@@ -37,10 +37,9 @@ public class CorsoDAO {
 				System.out.println(codins + " " + numeroCrediti + " " + nome + " " + periodoDidattico);
 
 				// Crea un nuovo JAVA Bean Corso
-				Corso c = new Corso (codins, numeroCrediti, nome, periodoDidattico);
-				
+				Corso c= new Corso(rs.getString("codins"), rs.getInt("crediti"), rs.getString("nome"), rs.getInt("pd"));
 				// Aggiungi il nuovo oggetto Corso alla lista corsi
-				corsi.add(c);
+				corsi.add(c);	
 			}
 
 			conn.close();
@@ -60,13 +59,61 @@ public class CorsoDAO {
 	 */
 	public void getCorso(Corso corso) {
 		// TODO
+		String sql = "SELECT * "
+				+ "FROM corso "
+				+ "WHERE codins = ?";
+		Corso c = null;
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, corso.getCodins());
+			
+			ResultSet rs = st.executeQuery();
+			
+			if (rs.next()) {
+				c= new Corso (corso.getCodins(),rs.getInt("crediti"), rs.getString("nome"), rs.getInt("pd") );
+			}
+			conn.close();
+		
+		}
+		 catch(SQLException e) {
+				// e.printStackTrace();
+				throw new RuntimeException("Errore Db", e);
+		  }	
+		
 	}
+		
 
 	/*
 	 * Ottengo tutti gli studenti iscritti al Corso
 	 */
-	public void getStudentiIscrittiAlCorso(Corso corso) {
-		// TODO
+	public String getStudentiIscrittiAlCorso(Corso corso) {
+		
+		String sql = "SELECT i.matricola, i.codins, s.cognome, s.nome "
+				+ "FROM corso c, iscrizione i, studente s "
+				+ "WHERE c.codins = i.codins AND i.codins = ? AND i.matricola = s.matricola";
+		
+		String studentiIscrittiCorso = "";
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, corso.getCodins());
+			
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next()) {
+				
+				studentiIscrittiCorso += rs.getInt("matricola")+" "+rs.getString("cognome")+" "+rs.getString("nome") + "\n";
+				
+			}
+			conn.close();
+		
+		}
+		 catch(SQLException e) {
+				// e.printStackTrace();
+				throw new RuntimeException("Errore Db", e);
+		  }	
+		return studentiIscrittiCorso;
 	}
 
 	/*

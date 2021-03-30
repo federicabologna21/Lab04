@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.lab04.FXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.lab04.FXMLController">
    <top>
       <Label text="Lab4_Segreteria_Studenti" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -24,74 +24,77 @@
          <children>
             <HBox>
                <children>
-                  <Label text="Corso:">
+                  <Label text="Corso: ">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="boxCorsi" promptText="Corsi                      ">
+                  <ComboBox fx:id="boxCorsi" prefWidth="150.0" promptText=" Corsi        ">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="50.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ComboBox>
                </children>
             </HBox>
-            <Button fx:id="btnCercaIscritti" mnemonicParsing="false" onAction="#cercaIscrittiCorso" text="Cerca iscritti corso">
+            <Button fx:id="btnCercaIscritti" mnemonicParsing="false" onAction="#CercaIscrittiCorso" text="Cerca iscritti corso">
                <VBox.margin>
-                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
             <HBox>
                <children>
-                  <Label text="Studente: ">
+                  <Label text="Studente:">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtInserisci">
+                  <TextField fx:id="txtInserisci" promptText="Matricola Studente">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <CheckBox fx:id="check" mnemonicParsing="false" onAction="#doCheck">
+                  <CheckBox fx:id="btnCheck" mnemonicParsing="false" onAction="#doCheck">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <TextField fx:id="txtNome" editable="false">
+                  <TextField fx:id="txtNome" editable="false" promptText="Nome Studente">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <TextField fx:id="txtCognome" editable="false">
+                  <TextField fx:id="txtCognome" editable="false" promptText="Cognome Studente">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
             </HBox>
             <HBox>
                <children>
-                  <Button fx:id="btnCercaCorsi" mnemonicParsing="false" onAction="#cercaCorsi" text="  Cerca corsi  ">
+                  <Button fx:id="btnCercaCorsi" mnemonicParsing="false" onAction="#CercaCorsi" text="Cerca corsi">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnIscrivi" mnemonicParsing="false" onAction="#doIscrivi" text="   Iscrivi   ">
+                  <Button fx:id="btnIscrivi" mnemonicParsing="false" onAction="#doIscrivi" text="Iscrivi">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="420.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="470.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <TextArea fx:id="txtRisultato">
+            <TextArea fx:id="txtRisultato" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </TextArea>
             <Button fx:id="btnReset" mnemonicParsing="false" onAction="#doReset" text="Reset">
                <VBox.margin>
-                  <Insets bottom="5.0" left="540.0" right="5.0" top="5.0" />
+                  <Insets bottom="10.0" left="570.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>

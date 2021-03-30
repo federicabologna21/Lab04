@@ -1,12 +1,20 @@
 package it.polito.tdp.lab04.model;
 
 public class Corso {
+
+	
+
+	//creo questa classe dopo aver creato la CorsoDAO
+	/**
+	 * CHIAMO I NOMI COME LE COLONNE DEL DATABASE
+	 */
 	
 	private String codins;
 	private Integer crediti;
 	private String nome;
 	private Integer pd;
 	
+	//creo il costruttore
 	
 	public Corso(String codins, Integer crediti, String nome, Integer pd) {
 		super();
@@ -16,6 +24,8 @@ public class Corso {
 		this.pd = pd;
 	}
 
+	
+	//getter e setter
 	public String getCodins() {
 		return codins;
 	}
@@ -48,9 +58,10 @@ public class Corso {
 		this.pd = pd;
 	}
 
-	
-	// genero hashCode e equals PER LA CHIAVE PRIMARIA (CODINS)
-	// RICORDA!! il metodo equals e hashCode vanno sempre generati insieme
+
+	//metodi hashcode e equals
+   // key -- > seleziono solo codins perche identifica corso
+				
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,11 +87,18 @@ public class Corso {
 		return true;
 	}
 
+	
+	
+	
+
 	@Override
 	public String toString() {
 		return nome;
-		// return "Corso [codins=" + codins + ", crediti=" + crediti + ", nome=" + nome + ", pd=" + pd + "]";
 	}
 	
+    
+	
+	
+ 
 
 }

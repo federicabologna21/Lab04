@@ -6,23 +6,26 @@ import it.polito.tdp.lab04.DAO.CorsoDAO;
 import it.polito.tdp.lab04.DAO.StudenteDAO;
 
 public class Model {
+
 	
-	private CorsoDAO corsoDao;
-	private StudenteDAO studenteDao;
-	
-	
+	private CorsoDAO corsodao;
+	private StudenteDAO studentedao;
+
 	public Model() {
-		corsoDao = new CorsoDAO();
-		
+		corsodao = new CorsoDAO();
+		studentedao= new StudenteDAO();
 	}
 	
 	public List<Corso> getTuttiICorsi(){
-		return corsoDao.getTuttiICorsi();
+		return corsodao.getTuttiICorsi();
 	}
 	
 	public Studente getStudente(Integer matricola) {
-		return studenteDao.getStudente(matricola);
+		return studentedao.getStudente(matricola);
 	}
-
 	
+	public String getStudentiIscritti(Corso corso) {
+		return corsodao.getStudentiIscrittiAlCorso(corso);
+		
+	}
 }

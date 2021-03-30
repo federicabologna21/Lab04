@@ -1,12 +1,20 @@
 package it.polito.tdp.lab04.model;
 
 public class Studente {
+
 	
 	private Integer matricola;
 	private String cognome;
 	private String nome;
 	private String CDS;
 	
+	
+	
+	public Studente(Integer matricola) {
+		super();
+		this.matricola = matricola;
+	}
+
 	public Studente(Integer matricola, String cognome, String nome, String cDS) {
 		super();
 		this.matricola = matricola;
@@ -14,13 +22,6 @@ public class Studente {
 		this.nome = nome;
 		CDS = cDS;
 	}
-
-	
-	public Studente(Integer matricola) {
-		super();
-		this.matricola = matricola;
-	}
-
 
 	public Integer getMatricola() {
 		return matricola;
@@ -46,7 +47,7 @@ public class Studente {
 		this.nome = nome;
 	}
 
-	public String getCDS() {
+	public String getcDS() {
 		return CDS;
 	}
 
@@ -81,9 +82,11 @@ public class Studente {
 
 	@Override
 	public String toString() {
-		return nome + " "+ cognome;
+		return nome+" "+cognome;
 	}
 	
 	
-
+	
+	
+	
 }
