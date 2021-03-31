@@ -2,6 +2,10 @@ package it.polito.tdp.lab04.model;
 
 public class Corso {
 
+	// CREO LA CLASSE DEFINENDO GLI ATTRIBUTI,
+	// IL COSTRUTTORE, I METODI GETTER E SETTER
+	// I METODI HASCODE E EQUALS (SOLO PER LA CHIAVE!- Codins)
+	// IL METODO TOSTRING (LO MODIFICO A SECONDA DELLE NECESSITA')
 	
 
 	//creo questa classe dopo aver creato la CorsoDAO
@@ -14,8 +18,6 @@ public class Corso {
 	private String nome;
 	private Integer pd;
 	
-	//creo il costruttore
-	
 	public Corso(String codins, Integer crediti, String nome, Integer pd) {
 		super();
 		this.codins = codins;
@@ -24,8 +26,6 @@ public class Corso {
 		this.pd = pd;
 	}
 
-	
-	//getter e setter
 	public String getCodins() {
 		return codins;
 	}
@@ -59,9 +59,6 @@ public class Corso {
 	}
 
 
-	//metodi hashcode e equals
-   // key -- > seleziono solo codins perche identifica corso
-				
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,18 +84,11 @@ public class Corso {
 		return true;
 	}
 
-	
-	
-	
-
+	// MODIFICO CON SOLO NOME PERCHE' 
+	// MI SERVE SOLO QUESTO
 	@Override
 	public String toString() {
 		return nome;
 	}
 	
-    
-	
-	
- 
-
 }

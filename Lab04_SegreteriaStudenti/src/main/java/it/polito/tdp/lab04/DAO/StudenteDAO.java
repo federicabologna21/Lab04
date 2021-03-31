@@ -27,7 +27,7 @@ public class StudenteDAO {
 			
 			if (rs.next()) {
 		
-	 s= new Studente(matricola, rs.getString("nome"), rs.getString("cognome"), rs.getString("CDS"));
+				s= new Studente(matricola, rs.getString("nome"), rs.getString("cognome"), rs.getString("CDS"));
 			}
 		
 			conn.close();
@@ -40,4 +40,38 @@ public class StudenteDAO {
 		
 		return s;
 	}
+	
+	
+	
+	public String getCorsiStudente (Integer matricola) {
+		
+		String sql = "SELECT i.codins, c.nome,c.crediti, c.pd "
+				+ "FROM corso c, iscrizione i, studente s "
+				+ "WHERE i.codins = c.codins AND i.matricola = s.matricola AND s.matricola = ?";
+		
+		String corsi = "";
+		
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, matricola);
+			
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next()) {
+				
+				corsi += rs.getString("codins")+" "+rs.getString("nome").toUpperCase()+", "+rs.getInt("crediti")+" crediti, "+rs.getInt("pd")+" periodo"+"\n";
+			}
+			
+			conn.close();
+			
+		}catch(SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException("Errore Db", e);
+		}	
+	
+		return corsi;
+	}
+
+
 }

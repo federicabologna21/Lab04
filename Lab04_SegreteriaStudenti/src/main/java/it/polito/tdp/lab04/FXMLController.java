@@ -5,6 +5,7 @@
 package it.polito.tdp.lab04;
 
 import java.net.URL;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,16 +66,53 @@ public class FXMLController {
 
     @FXML // fx:id="btnReset"
     private Button btnReset; // Value injected by FXMLLoader
-
+    
+    
+    /***
+     * PUNTO 4 
+     * RICERCA CORSI A CUI E' ISCRITTO UNO STUDENTE
+     */
+    
     @FXML
     void CercaCorsi(ActionEvent event) {
+    	
+    	String matricolaStringa = txtInserisci.getText();
+    	Integer matricola;
+    	Studente studente = null;
+    	
+    	try {
+    		matricola =Integer.parseInt(matricolaStringa); // TRASFORMO MATRICOLA IN INT 
+    		studente = model.getStudente(matricola);
+    		
+    		// CONTROLLO SE STUDENTE NON E' PRESENTE 
+    		if (studente == null) {
+    			txtRisultato.appendText(" Errore: lo studente "+ studente+" non è presente");
+    			return;
+    		}
+    		
+    	}catch(NumberFormatException e) { // TRASFORMAZIONE IN INTERO NON ANDATA A BUON FINE
+    		txtRisultato.setText("Errore: la matricola deve essere un numero");
+    		return;
+    		
+    	} catch(NullPointerException ne) { // UTENTE NON HA INSERITO MATRICOLA
+    		txtRisultato.setText("Errore: caratteri vuoti, devi inserire un numero");
+    		return;	
+    	}
+    	txtRisultato.setText(this.model.getCorsiStudente(matricola));
 
     }
 
+    /***
+     * PUNTO 3
+     * ELENCO STUDENTI ISCRITTI A UN CORSO SELEZIONATO 
+     */
     @FXML
     void CercaIscrittiCorso(ActionEvent event) {
+    	
+    	// PRENDO IL CORSO SELEZIONATO NELLA COMBO-BOX
     	Corso scelta = boxCorsi.getValue();
     	
+    	// CONTROLLO SE NON E' STATO SELEZIONATO NESSUN CORSO
     	if (scelta == null) {
     		txtRisultato.setText("Selezionare un corso");
     		return;
@@ -83,12 +121,13 @@ public class FXMLController {
 
     }
 
+    /***
+     * PUNTO 2
+     * CHECK VERDE CHE AGGIUNGE NOME E COGNOME PER LA MATRICOLA SCRITTA
+     */
     @FXML
     void doCheck(ActionEvent event) {
-    	//mi creo un metodo nella classe studente per implementare la logica
-    	//qui solo
     	
-    
     	Studente studente=null;
     	String matricolaStringa= txtInserisci.getText();
     	Integer matricola;
@@ -98,6 +137,7 @@ public class FXMLController {
     	 matricola=Integer.parseInt(matricolaStringa);
     	 studente=model.getStudente(matricola);
     		
+    	 // CONTROLLO SE STUDENTE NON E' PRESENTE 
     	 if(studente==null) {
     			txtRisultato.appendText("Nessuno studente presente");
     			return ;
@@ -105,28 +145,81 @@ public class FXMLController {
     		
 
     		
-    	} catch(NumberFormatException e) {
+    	} catch(NumberFormatException e) {// TRASFROMAZIONE INT NON ANDATA A BUON FINE
     		txtRisultato.setText("Errore: la matricola deve essere un numero");
     		return;
-    	} catch(NullPointerException ne) {
+    	} catch(NullPointerException ne) { // UTENTE NON HA SCRITTO MATRICOLA
     		txtRisultato.setText("Errore: caratteri vuoti, devi inserire un numero");
     		return;
     		
     	}
    
-     txtNome.setText(studente.getNome());
-     txtCognome.setText(studente.getCognome());
+    
+	     txtNome.setText(studente.getNome());
+	     txtCognome.setText(studente.getCognome());
      
      
     }
-
+    
+  
     @FXML
     void doIscrivi(ActionEvent event) {
-
+    	
+    	// CONTROLLO SUL BOX DEL CORSO SCELTO
+    	Corso scelta = boxCorsi.getValue();
+    	
+    	if (scelta == null) {
+    		txtRisultato.setText("Selezionare un corso");
+    		return;
+    	}
+    	
+    	// CONTROLLO SULLA MATRICOLA INSERITA 
+    	String matricolaStringa = txtInserisci.getText();
+    	Integer matricola;
+    	Studente studente = null;
+    	
+    	try {
+    		matricola =Integer.parseInt(matricolaStringa);
+    		studente = model.getStudente(matricola);
+    		
+    		if (studente == null) {
+    			txtRisultato.appendText(" Errore: lo studente "+ studente+" non è presente");
+    			return;
+    		}
+    		
+    	}catch(NumberFormatException e) {
+    		txtRisultato.setText("Errore: la matricola deve essere un numero");
+    		return;
+    		
+    	} catch(NullPointerException ne) {
+    		txtRisultato.setText("Errore: caratteri vuoti, devi inserire un numero");
+    		return;	
+    	}
+    	
+    	// --> SE MI RITROVO QUA TUTTO E' STATO INSERITO CORRETTAMENTE 
+    	
+    	// SE LO STUDENTE E' GIA' ISCRITTO (METODO A TRUE)
+    	if (this.model.cercaStudenteInCorso(studente, scelta)) {
+    		txtRisultato.setText("Lo studente con matricola '"+studente.getMatricola()+"' è già iscritto a questo corso");
+    	}
+    	// SE LO STUDENTE NON E' ANCORA ISCRITTO (METODO A FALSE) LO ISCRIVO
+    	else {
+    		boolean iscrittoSuccesso = this.model.inscriviStudenteACorso(studente, scelta);
+    		if (iscrittoSuccesso) {
+    			txtRisultato.setText("Lo studete con matricola '"+studente.getMatricola()+"' è stato iscritto con successo al corso '"+scelta.getNome()+"'");
+    		}
+    	}
     }
 
     @FXML
     void doReset(ActionEvent event) {
+    	
+    	// RIPULISCO TUTTI I CAMPI 
+    	txtRisultato.clear();
+    	txtInserisci.clear();
+    	txtNome.clear();
+    	txtCognome.clear();
+    	boxCorsi.getItems().clear();
 
     }
 
